@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$sapphire-theme-primary: mat-palette($mat-blue);
+$sapphire-theme-accent: mat-palette($mat-indigo);
+
+$sapphire-theme-warn: mat-palette($mat-red);
+
+$sapphire-theme: mat-light-theme($sapphire-theme-primary, $sapphire-theme-accent, $sapphire-theme-warn);
+
+@include angular-material-theme($sapphire-theme);

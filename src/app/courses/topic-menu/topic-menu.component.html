@@ -1,0 +1,13 @@
+<mat-card id="topicMenu">
+  <a
+    *ngFor="let topic of topics; index as i"
+    mat-button
+    [routerLink]="[this.mode, this.courseTitle, i]"
+    routerLinkActive="activeLink"
+  >
+    {{ topic.title }}
+  </a>
+  <button *ngIf="inEditMode" mat-button type="button" (click)="newTopic()">
+    New Topic
+  </button>
+</mat-card>

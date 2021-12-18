@@ -1,0 +1,30 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<label *ngIf="courses.length > 0 && !isLoading" for="search">Search</label>
+<input
+  *ngIf="courses.length > 0 && !isLoading"
+  mat-input
+  type="text"
+  (keyup)="updateSearch(search)"
+  #search
+  name="search"
+  id="search"
+/>
+<mat-accordion multi="true" *ngIf="courses.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let course of courses">
+    <mat-expansion-panel-header>
+      {{ course.title }}
+    </mat-expansion-panel-header>
+    <div [innerHTML]="course.description | noSanitize"></div>
+    <mat-action-row>
+      <a mat-button [routerLink]="['/course', course.title, '0']">Start Learning!</a>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator
+  [length]="totalCourses"
+  [pageSize]="coursesPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="courses.length > 0"
+></mat-paginator>
+<p *ngIf="courses.length == 0 && !isLoading">No courses added yet</p>

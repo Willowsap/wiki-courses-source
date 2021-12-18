@@ -1,0 +1,7 @@
+<main *ngIf="user">
+  <button mat-raised-button *ngIf="!user.verified" (click)="verify()">
+    You are not Verified. Click here to Verify
+  </button>
+  <h1>Email: {{ user.email }}</h1>
+  <h1>Username: {{ user.username }}</h1>
+</main>

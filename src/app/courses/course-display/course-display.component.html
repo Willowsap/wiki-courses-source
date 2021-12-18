@@ -1,0 +1,13 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<main *ngIf="!isLoading && course" class="course">
+  <div class="topicMenu">
+    <topic-menu [courseTitle]="course.title"></topic-menu>
+    <a *ngIf="user" mat-button [routerLink]="['/edit', course.title, '0']">
+      Edit this Course
+    </a>
+  </div>
+  <mat-card class="courseContent" *ngIf="topics && topics.length > 0">
+    <h1>{{ this.topicIndex === 0 ? course.title : topics[topicIndex].title }}</h1>
+    <div [innerHTML]="topics[topicIndex].contents"></div>
+  </mat-card>
+</main>

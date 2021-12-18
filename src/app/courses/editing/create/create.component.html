@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      [placeholder]="data.placeholder"
+      formControlName="title"
+      required
+    />
+    <mat-error *ngIf="form.get('title')!.invalid">
+      {{ data.error }}
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">{{ data.no }}</button>
+  <button mat-button (click)="save()">{{ data.yes }}</button>
+</mat-dialog-actions>

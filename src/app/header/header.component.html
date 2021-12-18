@@ -1,0 +1,42 @@
+<mat-toolbar>
+  <h1><a id="homeButton" routerLink="/">Wiki Courses</a></h1>
+  <span class="linkSection">
+    <ul id="linkList">
+      <li *ngIf="userIsAuthenticated">
+        <a class="headerLink middleLink" (click)="onLogout()">Logout</a>
+      </li>
+      <li *ngIf="!userIsAuthenticated">
+        <a
+          class="headerLink middleLink"
+          routerLink="/auth/signup"
+          routerLinkActive="activeLink"
+          >Signup</a
+        >
+      </li>
+      <li *ngIf="!userIsAuthenticated">
+        <a
+          class="headerLink middleLink"
+          routerLink="/auth/login"
+          routerLinkActive="activeLink"
+          >Login</a
+        >
+      </li>
+      <li *ngIf="userIsAuthenticated">
+        <a class="headerLink middleLink" (click)="newCourse()">New Course</a>
+      </li>
+      <li *ngIf="userIsAuthenticated">
+        <a
+          class="headerLink middleLink"
+          routerLink="/account"
+          routerLinkActive="activeLink"
+          >Account</a
+        >
+      </li>
+      <li>
+        <a class="headerLink" routerLink="/about" routerLinkActive="activeLink"
+          >About</a
+        >
+      </li>
+    </ul>
+  </span>
+</mat-toolbar>

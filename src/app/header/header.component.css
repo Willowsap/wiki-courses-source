@@ -1,0 +1,52 @@
+mat-toolbar {
+  background-color: transparent;
+  color: rgb(1, 147, 249);
+}
+
+.linkSection {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-content: flex-end;
+  justify-content: flex-end;
+}
+
+#linkList {
+  display: flex;
+  flex-direction: row-reverse;
+  list-style: none;
+}
+
+.headerLink {
+  color: rgb(1, 147, 249);
+  text-decoration: none;
+}
+
+.middleLink {
+  border-style: solid;
+  border-right-width: 0px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 2px;
+  border-color: rgb(22, 85, 129);
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
+.activeLink {
+  color: rgb(22, 85, 129);
+}
+
+.headerLink:hover {
+  color: rgb(22, 85, 129);
+  cursor: pointer;
+}
+
+#homeButton {
+  color: rgb(49, 159, 237);
+  text-decoration: none;
+}
+
+#homeButton:hover {
+  color: rgb(22, 85, 129);
+}

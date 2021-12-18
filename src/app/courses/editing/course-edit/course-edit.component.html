@@ -1,0 +1,97 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<main *ngIf="!isLoading && course">
+  <topic-menu
+    [courseTitle]="course.title"
+    [inEditMode]="true"
+  ></topic-menu>
+  <section id="mainContent">
+    <form (submit)="saveTitle(titleForm)" #titleForm="ngForm">
+      <mat-card id="title-card">
+        <span *ngIf="!editingTitle" class="titleDisplay">{{
+          topicIndex === 0 ? course.title : topics[topicIndex].title
+        }}</span>
+        <mat-form-field *ngIf="editingTitle">
+          <input
+            matInput
+            type="text"
+            placeholder="Section Title"
+            required
+            name="title"
+            [(ngModel)]="title"
+          />
+        </mat-form-field>
+        <button
+          *ngIf="!editingTitle"
+          type="button"
+          mat-button
+          (click)="editTitle()"
+        >
+          Click to edit title
+        </button>
+        <button
+          *ngIf="editingTitle"
+          type="submit"
+          mat-button
+        >
+          Save title
+        </button>
+      </mat-card>
+    </form>
+    <form (submit)="saveContents(contentsForm)" #contentsForm="ngForm">
+      <mat-card id="content-card">
+        <editor
+          required
+          name="contents"
+          [(ngModel)]="contents"
+          apiKey="bion9tqpl3ouy8i6ls0x33l3sdjklgq4hvfbns5lbciggln3"
+          [init]="{
+            height: 500,
+            menubar: 'file edit insert view format table tools help',
+            image_upload_url: 'http://localhost:3000/api/images',
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table paste wordcount'
+            ],
+            toolbar:
+              'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_style:
+              'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          }"
+        ></editor>
+      </mat-card>
+      <mat-action-row class="saveContents">
+        <button
+          class="courseInfoButton"
+          mat-raised-button
+          color="accent"
+          type="submit"
+        >
+        Save Contents
+        </button>
+      </mat-action-row>
+    </form>
+    <mat-action-row class="editButtons">
+      <button
+        mat-raised-button
+        color="accent"
+        type="button"
+        [routerLink]="['/course', course.title]"
+      >
+        Return to Course
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="deleteTopic()"
+      >
+        Delete Topic
+      </button>
+    </mat-action-row>
+
+    <mat-action-row class="advanced">
+      <a mat-button [routerLink]="['/advanced', course.title]"> Advanced </a>
+    </mat-action-row>
+  </section>
+</main>
