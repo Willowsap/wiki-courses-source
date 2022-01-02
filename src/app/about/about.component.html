@@ -1,15 +1,15 @@
 <div class="wrapper">
   <section class="page">
-    <h2 id="title" class="mat-h2">{{ title }}</h2>
-    <h1 id="subtitle" class="mat-h1">{{ subtitle }}</h1>
-    <article *ngFor="let sec of aboutSections">
+    <h2 id="title" class="mat-h2">{{ aboutData.title }}</h2>
+    <h1 id="subtitle" class="mat-h1">{{ aboutData.subtitle }}</h1>
+    <article *ngFor="let sec of aboutData.aboutSections">
       <p class="mat-body">
         {{ sec }}
       </p>
     </article>
     <article>
       <p class="mat-body">
-        <em>{{ closing }}</em>
+        <em>{{ aboutData.closing }}</em>
       </p>
     </article>
   </section>
