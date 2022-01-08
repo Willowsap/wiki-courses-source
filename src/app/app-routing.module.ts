@@ -11,7 +11,7 @@ import { AccountComponent } from './auth/account/account.component';
 import { AdvancedComponent } from './courses/editing/advanced/advanced.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: CourseListComponent },
   { path: 'about', component: AboutComponent },
   { path: 'feedback', component: FeedbackComponent },

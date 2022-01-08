@@ -29,7 +29,7 @@ describe('CourseDisplayComponent', () => {
       "getTopics"
     ]);
     TestBed.configureTestingModule({
-      
+
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [
         CourseDisplayComponent
@@ -45,7 +45,7 @@ describe('CourseDisplayComponent', () => {
     element = fixture.debugElement;
   });
 
-  it('should create the footer component', () => {
+  it('should create the course display component', () => {
     expect(component).toBeTruthy();
   });
 });

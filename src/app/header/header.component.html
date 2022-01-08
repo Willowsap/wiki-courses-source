@@ -3,11 +3,11 @@
   <span class="linkSection">
     <ul id="linkList">
       <li *ngIf="userIsAuthenticated">
-        <a class="headerLink middleLink" (click)="onLogout()">Logout</a>
+        <a class="headerLink middleLink logout" (click)="onLogout()">Logout</a>
       </li>
       <li *ngIf="!userIsAuthenticated">
         <a
-          class="headerLink middleLink"
+          class="headerLink middleLink signup"
           routerLink="/auth/signup"
           routerLinkActive="activeLink"
           >Signup</a
@@ -15,14 +15,14 @@
       </li>
       <li *ngIf="!userIsAuthenticated">
         <a
-          class="headerLink middleLink"
+          class="headerLink middleLink login"
           routerLink="/auth/login"
           routerLinkActive="activeLink"
           >Login</a
         >
       </li>
       <li *ngIf="userIsAuthenticated">
-        <a class="headerLink middleLink" (click)="newCourse()">New Course</a>
+        <a class="headerLink middleLink new-course" (click)="newCourse()">New Course</a>
       </li>
       <li *ngIf="userIsAuthenticated">
         <a
@@ -33,7 +33,7 @@
         >
       </li>
       <li>
-        <a class="headerLink" routerLink="/about" routerLinkActive="activeLink"
+        <a class="headerLink about" routerLink="/about" routerLinkActive="activeLink"
           >About</a
         >
       </li>
