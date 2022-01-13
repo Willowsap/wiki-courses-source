@@ -25,6 +25,6 @@
   [pageSize]="coursesPerPage"
   [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)"
-  *ngIf="courses.length > 0"
+  *ngIf="courses.length > 0 && !isLoading"
 ></mat-paginator>
 <p *ngIf="courses.length == 0 && !isLoading">No courses added yet</p>
