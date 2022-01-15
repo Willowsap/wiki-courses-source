@@ -2,9 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from "@angular/common/
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
-import { RouterLinkWithHref } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
-import { start } from "repl";
 import { of } from "rxjs";
 import { NoSanitizePipe } from "src/app/util/nosanitize.pipe";
 import { CourseListComponent } from "./course-list.component";
