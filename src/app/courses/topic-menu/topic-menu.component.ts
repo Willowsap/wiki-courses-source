@@ -26,13 +26,13 @@ export class TopicMenuComponent implements OnInit, OnDestroy {
   private userListener!: Subscription;
 
   constructor(
-    private router: Router,
     private createService: CreateService,
     private courseService: CourseService,
     private authService: AuthService
   ) {}
 
   newTopic() {
+    console.log("clicked")
     this.createService.openTopicCreation(
       this.courseTitle,
       this.user.email,

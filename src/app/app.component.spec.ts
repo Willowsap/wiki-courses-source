@@ -41,4 +41,4 @@ describe('AppComponent', () => {
       expect(authSpy.autoAuthUser).toHaveBeenCalledTimes(1);
     });
   });
-})
+});

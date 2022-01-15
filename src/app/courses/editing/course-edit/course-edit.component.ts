@@ -157,6 +157,7 @@ export class CourseEditComponent implements OnInit, OnDestroy, ComponentCanDeact
 
   saveContents = (contentsForm: NgForm) => {
     if (contentsForm.invalid) {
+      console.log("invalid")
       return;
     }
     const isCourseDescription = this.topicIndex === 0;

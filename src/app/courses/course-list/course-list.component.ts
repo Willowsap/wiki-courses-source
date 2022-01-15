@@ -3,7 +3,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { Course } from '../course.model';
 import { CourseService } from '../course.service';
-//import { CourseService } from '../course.service.stub';
 
 @Component({
   selector: 'app-course-list',
@@ -46,7 +45,9 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.coursesSub.unsubscribe();
+    if(this.coursesSub) {
+      this.coursesSub.unsubscribe();
+    }
   }
 
   onChangedPage(pageData: PageEvent) {

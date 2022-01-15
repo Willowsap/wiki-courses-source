@@ -17,11 +17,13 @@
             placeholder="Section Title"
             required
             name="title"
+            class="titleEdit"
             [(ngModel)]="title"
           />
         </mat-form-field>
         <button
           *ngIf="!editingTitle"
+          class="editTitle"
           type="button"
           mat-button
           (click)="editTitle()"
@@ -32,6 +34,7 @@
           *ngIf="editingTitle"
           type="submit"
           mat-button
+          class="saveTitle"
         >
           Save title
         </button>
@@ -62,7 +65,7 @@
       </mat-card>
       <mat-action-row class="saveContents">
         <button
-          class="courseInfoButton"
+          class="courseInfoButton saveTopicButton"
           mat-raised-button
           color="accent"
           type="submit"
@@ -84,6 +87,7 @@
         mat-raised-button
         color="warn"
         type="button"
+        class="delete"
         (click)="deleteTopic()"
       >
         Delete Topic
@@ -91,7 +95,7 @@
     </mat-action-row>
 
     <mat-action-row class="advanced">
-      <a mat-button [routerLink]="['/advanced', course.title]"> Advanced </a>
+      <a mat-button [routerLink]="['/advanced', course.title]" class="advancedLink"> Advanced </a>
     </mat-action-row>
   </section>
 </main>

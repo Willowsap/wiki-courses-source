@@ -37,7 +37,7 @@ export class CourseDisplayComponent implements OnInit, OnDestroy {
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (!paramMap.has('courseTitle')) {
-        console.log('course page accessed with no course title');
+        //console.log('course page accessed with no course title');
         this.router.navigate(['/']);
       }
       if (paramMap.has('topicIndex')) {
@@ -61,7 +61,11 @@ export class CourseDisplayComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userUpdated.unsubscribe();
-    this.topicsUpdated.unsubscribe();
+    if (this.userUpdated) {
+      this.userUpdated.unsubscribe();
+    }
+    if (this.topicsUpdated) {
+      this.topicsUpdated.unsubscribe();
+    }
   }
 }
