@@ -115,6 +115,7 @@ export class CourseEditComponent implements OnInit, OnDestroy, ComponentCanDeact
   }
 
   saveTitle = (titleForm: NgForm) => {
+    console.log("saveTitle called")
     if (titleForm.invalid) {
       return;
     }

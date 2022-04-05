@@ -103,8 +103,7 @@ export class AdvancedComponent implements OnInit {
 
   deleteCourse() {
     this.confirmDeletion().subscribe((result) => {
-      if (result)
-        [
+      if (result) {
           this.courseService
             .deleteCourse({
               courseTitle: this.courseTitle,
@@ -112,10 +111,10 @@ export class AdvancedComponent implements OnInit {
               username: this.user.username,
               message: result,
             })
-            .subscribe((result) => {
+            .subscribe(() => {
               this.router.navigate(['/']);
-            }),
-        ];
+            });
+        };
     });
   }
 
@@ -123,7 +122,7 @@ export class AdvancedComponent implements OnInit {
       this.location.back();
   }
 
-  private confirmDeletion() {
+  confirmDeletion() {
     return this.createService.openRequest({
       title: 'Are you sure?',
       message: 'Please describe why you are deleting this course',
@@ -134,7 +133,7 @@ export class AdvancedComponent implements OnInit {
     });
   }
 
-  private confirmRevert() {
+  confirmRevert() {
     return this.createService.openRequest({
       title: 'Are you sure?',
       message: 'Please describe why you are reverting to this version',

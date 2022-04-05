@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { Router, RouterLinkWithHref } from "@angular/router";
+import { RouterLinkWithHref } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { of } from "rxjs";
 import { AuthService } from "../auth/auth.service";

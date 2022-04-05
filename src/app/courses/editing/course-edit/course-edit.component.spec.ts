@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
 import { By } from "@angular/platform-browser";
@@ -11,7 +11,7 @@ import { of } from "rxjs";
 import { routes } from "src/app/app-routing.module";
 import { CourseEditComponent } from "./course-edit.component";
 
-fdescribe('CourseEditComponent', () => {
+describe('CourseEditComponent', () => {
   const testCourse = {
     title: "testCourse",
     description: "course description"
@@ -56,19 +56,18 @@ fdescribe('CourseEditComponent', () => {
     ]);
     authSpy.getUserListener.and.returnValue(of(testUser));
     createSpy = jasmine.createSpyObj("CreateService", ["openRequest"]);
-    createSpy.openRequest.and.returnValue(of('result'));
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     confirmationSpy = jasmine.createSpyObj('ConfirmationService', ["openConfirmation"]);
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [CourseEditComponent],
       providers: [
-        { provide: "CourseService", useValue: courseSpy }, 
-        { provide: "AuthService", useValue: authSpy }, 
+        { provide: "CourseService", useValue: courseSpy },
+        { provide: "AuthService", useValue: authSpy },
         { provide: "CreateService", useValue: createSpy },
         { provide: "Router", useValue: routerSpy},
         { provide: "ConfirmationService", useValue: confirmationSpy },
-        { provide: "ActivatedRoute", useValue: { 
+        { provide: "ActivatedRoute", useValue: {
           paramMap: of(convertToParamMap({
             courseTitle: testCourse.title,
             topicIndex: "0"
@@ -121,33 +120,19 @@ fdescribe('CourseEditComponent', () => {
     expect(titleElem.nativeElement.textContent).toEqual(testCourse.title);
   });
 
-  it('should display an editor for the title when editing', fakeAsync(() => {
-    setup(false, 0);
-    component.editingTitle = true;
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      const titleEditor = element.query(By.css('.titleEdit'));
-      const event = new Event("input");
-      titleEditor.nativeElement.dispatchEvent(event);
-      tick();
-      expect(titleEditor.nativeElement.textContent).toEqual(testCourse.title);
-    });
-  }));
+  it('should display an editor for the title when editing', () => {
+    setup(false, 0, true);
+    const titleEditor = element.query(By.css('.titleEdit'));
+    expect(titleEditor).toBeTruthy();
+  });
 
-  it('should open a request window when saving the title', fakeAsync(() => {
-    setup(false, 0);
-    fixture.whenStable().then(() => {
-      component.editingTitle = true;
-      fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        const saveTitleButton = element.query(By.css('button.saveTitle'));
-        saveTitleButton.nativeElement.click();
-        tick();
-        fixture.whenStable().then(() => {
-          expect(createSpy.openRequest).toHaveBeenCalledTimes(1);
-        });
-      });
-    });
+  it('should call saveTitle when save button is clicked', fakeAsync(() => {
+    setup(false, 0, true);
+    const fnc = spyOn(component, "saveTitle")
+    const saveTitleButton = element.query(By.css('button.saveTitle'));
+    saveTitleButton.nativeElement.click();
+    fixture.detectChanges();
+    expect(fnc).toHaveBeenCalled();
   }));
 
   /* Topic Tests */
@@ -159,60 +144,42 @@ fdescribe('CourseEditComponent', () => {
   });
 
   it('should display an editor for the topic title when editing a topic', fakeAsync(() => {
-    setup(false, 1);
-    component.editingTitle = true;
+    setup(false, 1, true);
+    const titleEditor = element.query(By.css('.titleEdit'));
+    titleEditor.nativeElement.value = testTopics[1].title;
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      const titleEditor = element.query(By.css('.titleEdit'));
-      const event = new Event("input");
-      titleEditor.nativeElement.dispatchEvent(event);
-      tick();
-      expect(titleEditor.nativeElement.textContent).toEqual(testTopics[1].title);
-    });
+    expect(titleEditor.nativeElement.value).toEqual(testTopics[1].title);
   }));
 
   it('should open a request window when saving the topic title', fakeAsync(() => {
-    setup(false, 1);
-    fixture.whenStable().then(() => {
-      component.editingTitle = true;
-      fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        const saveTitleButton = element.query(By.css('button.saveTitle'));
-        saveTitleButton.nativeElement.click();
-        tick();
-        fixture.whenStable().then(() => {
-          expect(createSpy.openRequest).toHaveBeenCalledTimes(1);
-        });
-      });
-    });
+    setup(false, 1, true);
+    const fnc = spyOn(component, "saveTitle")
+    const saveTitleButton = element.query(By.css('button.saveTitle'));
+    saveTitleButton.nativeElement.click();
+    tick();
+    expect(fnc).toHaveBeenCalledTimes(1);
   }));
 
   /* other tests */
 
   it('should save the topic when save is clicked and it is not on topic 0', fakeAsync(() => {
     setup(false, 1);
-    fixture.whenStable().then(() => {
-      const saveButton = element.query(By.css('button.saveTopicButton'));
-      saveButton.nativeElement.click();
-      fixture.detectChanges();
-      tick();
-      fixture.whenStable().then(() => {
-        expect(createSpy.openRequest).toHaveBeenCalledTimes(1);
-      });
-    });
+    const fnc = spyOn(component, "saveContents")
+    const saveButton = element.query(By.css('button.saveTopicButton'));
+    saveButton.nativeElement.click();
+    fixture.detectChanges();
+    tick();
+    expect(fnc).toHaveBeenCalledTimes(1);
   }));
 
   it('should save the course when save is clicked and it is on topic 0', fakeAsync(() => {
     setup(false, 1);
-    fixture.whenStable().then(() => {
-      const saveButton = element.query(By.css('button.saveTopicButton'));
-      saveButton.nativeElement.click();
-      fixture.detectChanges();
-      tick();
-      fixture.whenStable().then(() => {
-        expect(createSpy.openRequest).toHaveBeenCalledTimes(1);
-      });
-    });
+    const fnc = spyOn(component, "saveContents")
+    const saveButton = element.query(By.css('button.saveTopicButton'));
+    saveButton.nativeElement.click();
+    fixture.detectChanges();
+    tick();
+    expect(fnc).toHaveBeenCalledTimes(1);
   }));
 
   it('should have a link to advanced', () => {
@@ -226,12 +193,12 @@ fdescribe('CourseEditComponent', () => {
 
   /* HELPER METHODS */
 
-  const setup = (isLoading: boolean, topicIndex: number) => {
+  const setup = (isLoading: boolean, topicIndex?: number, editingTitle?: boolean) => {
     component.course = testCourse;
     component.topics = testTopics;
-    component.topicIndex = topicIndex;
+    component.topicIndex = topicIndex ? topicIndex : 0;
     component.user = testUser;
-    component.editingTitle = false;
+    component.editingTitle = editingTitle ? editingTitle : false;
     component.isLoading = isLoading;
     fixture.detectChanges();
   };

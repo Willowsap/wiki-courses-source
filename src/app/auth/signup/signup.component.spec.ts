@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { of } from "rxjs";
 import { AuthService } from "../auth.service";
-import { LoginComponent } from "./login.component";
+import { SignupComponent } from "./signup.component";
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>
+describe('SignupComponent', () => {
+  let component: SignupComponent;
+  let fixture: ComponentFixture<SignupComponent>
   let element: DebugElement;
 
   let authSpy: any;
@@ -15,23 +15,23 @@ describe('LoginComponent', () => {
   beforeEach(async() => {
     authSpy = jasmine.createSpyObj("AuthService", [
       "getAuthStatusListener",
-      "login"
+      "Signup"
     ]);
     authSpy.getAuthStatusListener.and.returnValue(of('something'));
     TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      declarations: [ LoginComponent ],
+      declarations: [ SignupComponent ],
       providers: [
         { provide: AuthService, useValue: authSpy },
       ],
     })
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(SignupComponent);
     fixture.detectChanges();
     component = fixture.componentInstance;
     element = fixture.debugElement;
   });
 
-  it('should create the login  component', () => {
+  it('should create the Signup  component', () => {
     expect(component).toBeTruthy();
   });
 
