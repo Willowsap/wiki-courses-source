@@ -436,11 +436,13 @@ export class CourseService {
 
   revertCourse({
     courseTitle,
-    oid
+    oid,
+    message
   }: {
     courseTitle: string,
-    oid: string
+    oid: string,
+    message: string
   }) {
-    return this.http.put(BACKEND_URL + "versions/" + courseTitle, {oid});
+    return this.http.put(BACKEND_URL + "versions/" + courseTitle, {oid, message});
   }
 }

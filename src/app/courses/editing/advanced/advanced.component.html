@@ -1,8 +1,11 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <main *ngIf="!isLoading">
   <section id="deleteSection">
-    <h1>Delete Entire Course</h1>
-    <button mat-raised-button color="warn" (click)="deleteCourse()">Delete this Course</button>
+    <button mat-raised-button color="accent" (click)="back()">Back</button>
+    <span>
+        <h1>Delete Entire Course</h1>
+        <button mat-raised-button color="warn" (click)="deleteCourse()">Delete this Course</button>
+    </span>
   </section>
   <section id="revertSection">
     <h1 id="revertTitle">Revert to a previous version</h1>
@@ -13,9 +16,10 @@
         <h1>Time Created: {{ v.date }}</h1>
         <h1>Message</h1>
         <p>{{ v.message }}</p>
-        <button mat-raised-button (click)="revert(i)">
+        <button mat-raised-button (click)="revert(i)" *ngIf="i > 0">
           Revert to this version
         </button>
+        <button mat-raised-button disabled *ngIf="i === 0">Current Version</button>
       </mat-card>
     </section>
   </section>

@@ -1,10 +1,9 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { commit, CommitObject } from 'isomorphic-git';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
-import { Course } from '../../course.model';
 import { CourseService } from '../../course.service';
 import { CreateService } from '../create/create.service';
 import { Commit } from './commit.model';
@@ -28,6 +27,7 @@ export class AdvancedComponent implements OnInit {
     private createService: CreateService,
     private courseService: CourseService,
     private authService: AuthService,
+    private location: Location,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -73,6 +73,7 @@ export class AdvancedComponent implements OnInit {
         this.courseService.revertCourse({
           courseTitle: this.courseTitle,
           oid: this.transformedVersions[commitIndex].oid,
+          message: result
         }).subscribe(result => {
           this.router.navigate(["edit", this.courseTitle, "0"])
         });
@@ -116,6 +117,10 @@ export class AdvancedComponent implements OnInit {
             }),
         ];
     });
+  }
+
+  back() {
+      this.location.back();
   }
 
   private confirmDeletion() {

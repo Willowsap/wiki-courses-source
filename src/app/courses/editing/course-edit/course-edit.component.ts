@@ -234,6 +234,7 @@ export class CourseEditComponent implements OnInit, OnDestroy, ComponentCanDeact
     } else {
       this.topics[this.topicIndex].title = this.title;
     }
+    this.courseService.getTopics({ courseTitle: this.course.title });
     this.contents = this.topics[this.topicIndex].contents;
     return this.confirmationService.openConfirmation({
       title: 'Success',
