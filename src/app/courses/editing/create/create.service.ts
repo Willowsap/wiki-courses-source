@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CourseService } from '../../course.service';
-// import { CourseService } from '../../course.service.stub';
 import { CreateComponent } from './create.component';
 
 @Injectable({ providedIn: 'root' })

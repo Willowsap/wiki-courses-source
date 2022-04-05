@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { Router, RouterLinkWithHref } from "@angular/router";
+import { RouterLinkWithHref } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { of } from "rxjs";
 import { AuthService } from "../auth/auth.service";
@@ -9,14 +9,12 @@ import { HeaderComponent } from "./header.component";
 import { routes } from "../app-routing.module";
 import { By } from "@angular/platform-browser";
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>
   let element: DebugElement;
   let authSpy: any;
   let createSpy: any;
-  let router: Router;
-  let location: Location;
 
   beforeEach(async() => {
     authSpy = jasmine.createSpyObj("AuthService", [
@@ -43,10 +41,7 @@ fdescribe('HeaderComponent', () => {
         RouterTestingModule.withRoutes(routes)
       ]
     });
-    router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
     fixture = TestBed.createComponent(HeaderComponent);
-    router.initialNavigation();
     fixture.detectChanges();
     component = fixture.componentInstance;
     element = fixture.debugElement;
@@ -79,17 +74,44 @@ fdescribe('HeaderComponent', () => {
     expect(routerLinkInstance['href']).toEqual('/about');
   });
 
-  it('should link to the signup page', () => {
+  it('should link to the signup page if not logged in', () => {
+    component.userIsAuthenticated = false;
+    fixture.detectChanges();
     const linkDebugEl = element.query(By.css('a.signup'));
     const routerLinkInstance = linkDebugEl.injector.get(RouterLinkWithHref);
-    expect(routerLinkInstance['commands']).toEqual(['/signup']);
-    expect(routerLinkInstance['href']).toEqual('/signup');
+    expect(routerLinkInstance['commands']).toEqual(['/auth/signup']);
+    expect(routerLinkInstance['href']).toEqual('/auth/signup');
   });
 
-  it('should link to the login page', () => {
+  it('should link to the login page if not logged in', () => {
+    component.userIsAuthenticated = false;
+    fixture.detectChanges();
     const linkDebugEl = element.query(By.css('a.login'));
     const routerLinkInstance = linkDebugEl.injector.get(RouterLinkWithHref);
-    expect(routerLinkInstance['commands']).toEqual(['/login']);
-    expect(routerLinkInstance['href']).toEqual('/login');
+    expect(routerLinkInstance['commands']).toEqual(['/auth/login']);
+    expect(routerLinkInstance['href']).toEqual('/auth/login');
+  });
+
+  it('should link to the account page if logged in', () => {
+    component.userIsAuthenticated = true;
+    fixture.detectChanges();
+    const linkDebugEl = element.query(By.css('a.account'));
+    const routerLinkInstance = linkDebugEl.injector.get(RouterLinkWithHref);
+    expect(routerLinkInstance['commands']).toEqual(['/account']);
+    expect(routerLinkInstance['href']).toEqual('/account');
+  });
+
+  it('should not link to the signup page if logged in', () => {
+    component.userIsAuthenticated = true;
+    fixture.detectChanges();
+    const linkDebugEl = element.query(By.css('a.signup'));
+    expect(linkDebugEl).toBeNull();
+  });
+
+  it('should not link to the login page if logged in', () => {
+    component.userIsAuthenticated = true;
+    fixture.detectChanges();
+    const linkDebugEl = element.query(By.css('a.login'));
+    expect(linkDebugEl).toBeNull();
   });
 })

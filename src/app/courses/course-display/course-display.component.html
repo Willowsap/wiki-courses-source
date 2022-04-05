@@ -2,7 +2,7 @@
 <main *ngIf="!isLoading && course" class="course">
   <div class="topicMenu">
     <topic-menu [courseTitle]="course.title"></topic-menu>
-    <a *ngIf="user" mat-button [routerLink]="['/edit', course.title, '0']">
+    <a *ngIf="user" mat-button [routerLink]="['/edit', course.title, '0']" class="edit">
       Edit this Course
     </a>
   </div>

@@ -115,6 +115,7 @@ export class CourseEditComponent implements OnInit, OnDestroy, ComponentCanDeact
   }
 
   saveTitle = (titleForm: NgForm) => {
+    console.log("saveTitle called")
     if (titleForm.invalid) {
       return;
     }
@@ -157,6 +158,7 @@ export class CourseEditComponent implements OnInit, OnDestroy, ComponentCanDeact
 
   saveContents = (contentsForm: NgForm) => {
     if (contentsForm.invalid) {
+      console.log("invalid")
       return;
     }
     const isCourseDescription = this.topicIndex === 0;
@@ -233,6 +235,7 @@ export class CourseEditComponent implements OnInit, OnDestroy, ComponentCanDeact
     } else {
       this.topics[this.topicIndex].title = this.title;
     }
+    this.courseService.getTopics({ courseTitle: this.course.title });
     this.contents = this.topics[this.topicIndex].contents;
     return this.confirmationService.openConfirmation({
       title: 'Success',
